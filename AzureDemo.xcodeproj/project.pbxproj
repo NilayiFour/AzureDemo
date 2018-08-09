@@ -12,9 +12,11 @@
 		8BE30AA32105D5850039ADE1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BE30AA12105D5850039ADE1 /* Main.storyboard */; };
 		8BE30AA52105D5880039ADE1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BE30AA42105D5880039ADE1 /* Assets.xcassets */; };
 		8BE30AA82105D5880039ADE1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BE30AA62105D5880039ADE1 /* LaunchScreen.storyboard */; };
+		8BE30AB12105D6CB0039ADE1 /* MSAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BE30AB02105D6CB0039ADE1 /* MSAL.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8BC0E7682114310300C2AD7C /* AzureDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AzureDemo.entitlements; sourceTree = "<group>"; };
 		8BE30A9A2105D5850039ADE1 /* AzureDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AzureDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BE30A9D2105D5850039ADE1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BE30A9F2105D5850039ADE1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +24,7 @@
 		8BE30AA42105D5880039ADE1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8BE30AA72105D5880039ADE1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8BE30AA92105D5880039ADE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8BE30AB02105D6CB0039ADE1 /* MSAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MSAL.framework; path = Carthage/Build/iOS/MSAL.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BE30AB12105D6CB0039ADE1 /* MSAL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +44,7 @@
 			children = (
 				8BE30A9C2105D5850039ADE1 /* AzureDemo */,
 				8BE30A9B2105D5850039ADE1 /* Products */,
+				8BE30AAF2105D6CB0039ADE1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,6 +59,7 @@
 		8BE30A9C2105D5850039ADE1 /* AzureDemo */ = {
 			isa = PBXGroup;
 			children = (
+				8BC0E7682114310300C2AD7C /* AzureDemo.entitlements */,
 				8BE30A9D2105D5850039ADE1 /* AppDelegate.swift */,
 				8BE30A9F2105D5850039ADE1 /* ViewController.swift */,
 				8BE30AA12105D5850039ADE1 /* Main.storyboard */,
@@ -62,6 +68,14 @@
 				8BE30AA92105D5880039ADE1 /* Info.plist */,
 			);
 			path = AzureDemo;
+			sourceTree = "<group>";
+		};
+		8BE30AAF2105D6CB0039ADE1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8BE30AB02105D6CB0039ADE1 /* MSAL.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,6 +88,7 @@
 				8BE30A962105D5850039ADE1 /* Sources */,
 				8BE30A972105D5850039ADE1 /* Frameworks */,
 				8BE30A982105D5850039ADE1 /* Resources */,
+				8BE30AB22105D6D70039ADE1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -96,6 +111,11 @@
 				TargetAttributes = {
 					8BE30A992105D5850039ADE1 = {
 						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -129,6 +149,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8BE30AB22105D6D70039ADE1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/MSAL.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8BE30A962105D5850039ADE1 /* Sources */ = {
@@ -280,7 +317,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = AzureDemo/AzureDemo.entitlements;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = AzureDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -288,6 +331,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.AzureDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -297,7 +341,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = AzureDemo/AzureDemo.entitlements;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = AzureDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -305,6 +355,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.AzureDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
