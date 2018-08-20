@@ -10,15 +10,16 @@ import UIKit
 import MSAL
 
 class ViewController: UIViewController, UITextFieldDelegate, URLSessionDelegate {
-    let kTenantName = "kpmgb2c.onmicrosoft.com" // Your tenant name
-    let kClientID = "65b2faa1-6acd-4744-8e26-79904f881b0a" // Your client ID from the portal when you created your application
+//    let kTenantName = "kpmgb2c.onmicrosoft.com" // Your tenant name
+    let kTenantName = "tagologicweb.onmicrosoft.com" // Your tenant name
+//    let kClientID = "65b2faa1-6acd-4744-8e26-79904f881b0a" // Your client ID from the portal when you created your application
+    let kClientID = "3ebaafb3-56ba-4062-8a7a-6d0bec5af762" // Your client ID from the portal when you created your application
     let kSignupOrSigninPolicy = "B2C_1A_SignUpOrSignInWithKmsi" // Your signup and sign-in policy you created in the portal
     let kEditProfilePolicy = "B2C_1A_ProfileEdit" // Your edit policy you created in the portal
-    let kGraphURI = "https://graph.microsoft.com/v1.0/me/" // This is your backend API that you've configured to accept your app's tokens
-//    let kGraphURI = "https://graph.windows.net/kpmgb2c.onmicrosoft.com/users?api-version=1.6"
-//    let kGraphURI = "https://graph.microsoft.com/v1.0/me/kpmgb2c.onmicrosoft.com/users?api-version=1.5"
-//    let kGraphURI = "https://kpmgb2chello.azurewebsites.net/hello"
-    let kScopes: [String] = ["https://kpmgb2c.onmicrosoft.com/notes/read"] // This is a scope that you've configured your backend API to look for.
+//    let kGraphURI = "https://graph.microsoft.com/v1.0/me/" // This is your backend API that you've configured to accept your app's tokens
+    let kGraphURI = "https://demo.ifour-consultancy.net/hmsapi/User?objectId=6b14f8bb-6db5-4582-9cc0-4d1cddf0bd6e" // This is your backend API that you've configured to accept your app's tokens
+//    let kScopes: [String] = ["https://kpmgb2c.onmicrosoft.com/notes/read"] // This is a scope that you've configured your backend API to look for.
+    let kScopes: [String] = ["https://tagologicweb.onmicrosoft.com/hmsapitasks/read"] // This is a scope that you've configured your backend API to look for.
 
     // DO NOT CHANGE - This is the format of OIDC Token and Authorization endpoints for Azure AD B2C.
     let kEndpoint = "https://login.microsoftonline.com/tfp/%@/%@"
@@ -143,20 +144,20 @@ class ViewController: UIViewController, UITextFieldDelegate, URLSessionDelegate 
         
         // Set the Authorization header for the request. We use Bearer tokens, so we specify Bearer + the token we got from the result
         request.setValue("Bearer \(self.accessToken)", forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+        request.setValue("9b2c00d9983d4c6d82448bec510b57ba", forHTTPHeaderField: "Ocp-Apim-Subscription-Key")
+
         let urlSession = URLSession(configuration: sessionConfig, delegate: self, delegateQueue: OperationQueue.main)
         
         urlSession.dataTask(with: request) { data, response, error in
             let result: NSDictionary = try! JSONSerialization.jsonObject(with: data!, options: []) as! NSDictionary
-            
+
             if result != nil {
                 var arr: NSDictionary = NSDictionary()
-                
+
                 if ((result.value(forKey: "error") as? NSDictionary) != nil) {
                     arr = result.value(forKey: "error") as! NSDictionary
                     let str: String = arr.value(forKey: "code") as! String
-                    
+
                     if str == "InvalidAuthenticationToken" {
                         self.callGraphButton(UIButton())
                     }
