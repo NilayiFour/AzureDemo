@@ -17,7 +17,7 @@ class ViewController: UIViewController, UITextFieldDelegate, URLSessionDelegate 
     let kSignupOrSigninPolicy = "B2C_1A_SignUpOrSignInWithKmsi" // Your signup and sign-in policy you created in the portal
     let kEditProfilePolicy = "B2C_1A_ProfileEdit" // Your edit policy you created in the portal
 //    let kGraphURI = "https://graph.microsoft.com/v1.0/me/" // This is your backend API that you've configured to accept your app's tokens
-    let kGraphURI = "https://demo.ifour-consultancy.net/hmsapi/User?objectId=6b14f8bb-6db5-4582-9cc0-4d1cddf0bd6e" // This is your backend API that you've configured to accept your app's tokens
+    let kGraphURI = "https://hmsnewapi.ifour-consultancy.net/User?objectId=6b14f8bb-6db5-4582-9cc0-4d1cddf0bd6e" // This is your backend API that you've configured to accept your app's tokens
 //    let kScopes: [String] = ["https://kpmgb2c.onmicrosoft.com/notes/read"] // This is a scope that you've configured your backend API to look for.
     let kScopes: [String] = ["https://tagologicweb.onmicrosoft.com/hmsapitasks/read"] // This is a scope that you've configured your backend API to look for.
 
